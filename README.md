@@ -13,6 +13,7 @@
 ![tst1ter1](https://user-images.githubusercontent.com/68666964/184927558-3b3c99e0-7501-4353-8979-fc1e8156f7f8.png)
 
 ### Caso queira um teste altomatizado na pasta test/et-01_test.dart terá 2 listas com os nomes numbers e expected, na lista numbers insira os valores que desaja testar e em expected os valores que deveria retornar em caso de sucesso.
+> Lembrando que os indices dos valores em numbers devem ser os mesmos dos valores em expected, por exemplo, deseja inserir o valor 3 e esperar a saida 0, então se o valor 3 é o 1º da lista de numbers então o valor 0 deve ser o 1º na lista expected. 
 ![tst1test1](https://user-images.githubusercontent.com/68666964/184928466-dba2c7c2-d698-4f1b-82c7-b7eb7d187690.png)
 
 *Para rodar o código digite no terminal, dart run ./et-01/test/et_01_test.dart ou click em cima da função main em run ou debug, no caso de escrever o comando no terminal ira aparecer o resultado no terminal e caso click em run ou debug ira aparecer o resultado na aba debug console.*
