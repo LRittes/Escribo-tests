@@ -7,7 +7,7 @@ void main() {
   for (var idx = 0; idx < numbers.length; idx++) {
     test('Deve retornar ${expected[idx]} com entrada de dado ${numbers[idx]}\n',
         () {
-      expect(calculate(3), equals(0));
+      expect(calculate(numbers[idx]), equals(expected[idx]));
     });
   }
 }
