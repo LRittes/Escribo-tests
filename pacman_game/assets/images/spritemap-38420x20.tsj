@@ -1,0 +1,14 @@
+{ "columns":16,
+ "image":"..\/..\/..\/..\/..\/..\/..\/Downloads\/spritemap-38420x20.png",
+ "imageheight":200,
+ "imagewidth":320,
+ "margin":0,
+ "name":"spritemap-38420x20",
+ "spacing":0,
+ "tilecount":160,
+ "tiledversion":"1.9.1",
+ "tileheight":20,
+ "tilewidth":20,
+ "type":"tileset",
+ "version":"1.8"
+}

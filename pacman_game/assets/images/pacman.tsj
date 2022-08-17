@@ -1,0 +1,14 @@
+{ "columns":11,
+ "image":"pacman.png",
+ "imageheight":160,
+ "imagewidth":227,
+ "margin":0,
+ "name":"pacman",
+ "spacing":0,
+ "tilecount":88,
+ "tiledversion":"1.9.1",
+ "tileheight":20,
+ "tilewidth":20,
+ "type":"tileset",
+ "version":"1.8"
+}

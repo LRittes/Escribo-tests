@@ -1,0 +1,14 @@
+{ "columns":19,
+ "image":"..\/..\/..\/..\/..\/..\/..\/Downloads\/spritemap-384.png",
+ "imageheight":240,
+ "imagewidth":384,
+ "margin":0,
+ "name":"spritemap-384",
+ "spacing":0,
+ "tilecount":228,
+ "tiledversion":"1.9.1",
+ "tileheight":20,
+ "tilewidth":20,
+ "type":"tileset",
+ "version":"1.8"
+}
