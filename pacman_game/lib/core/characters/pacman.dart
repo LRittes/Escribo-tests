@@ -1,28 +1,34 @@
 import 'package:bonfire/bonfire.dart';
-import 'package:pacman_game/core/characters/gamespritsheet.dart';
+import 'package:pacman_game/core/characters/player_game_sprite_sheet.dart';
 
 class Pacman extends SimplePlayer with ObjectCollision {
-  late Vector2 playerPosition;
-  late Vector2 playerSize;
-  Pacman({required position, required size})
+  final Vector2 playerPosition;
+  final Vector2 playerSize;
+  static final PlayerSpriteSheet playerSpriteSheet = PlayerSpriteSheet();
+  Pacman({required this.playerPosition, required this.playerSize})
       : super(
-          position: position,
-          size: size,
+          position: playerPosition,
+          size: playerSize,
           animation: SimpleDirectionAnimation(
-            idleRight: GameSpriteSheet.heroidRight,
-            idleDown: GameSpriteSheet.heroidDown,
-            idleLeft: GameSpriteSheet.heroidLeft,
-            idleUp: GameSpriteSheet.heroidUp,
-            runRight: GameSpriteSheet.heroRunRight,
-            runLeft: GameSpriteSheet.heroRunLeft,
-            runUp: GameSpriteSheet.heroRunUp,
-            runDown: GameSpriteSheet.heroRunDown,
+            idleRight: playerSpriteSheet.heroidRight,
+            idleDown: playerSpriteSheet.heroidDown,
+            idleLeft: playerSpriteSheet.heroidLeft,
+            idleUp: playerSpriteSheet.heroidUp,
+            runRight: playerSpriteSheet.heroRunRight,
+            runLeft: playerSpriteSheet.heroRunLeft,
+            runUp: playerSpriteSheet.heroRunUp,
+            runDown: playerSpriteSheet.heroRunDown,
           ),
           speed: 80,
+          life: 3,
         ) {
-    playerPosition = position;
-    playerSize = size;
     setupCollision(CollisionConfig(
         collisions: [CollisionArea.rectangle(size: Vector2(18, 18))]));
+  }
+
+  @override
+  void die() {
+    removeFromParent();
+    super.die();
   }
 }

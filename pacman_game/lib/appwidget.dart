@@ -11,7 +11,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const GameMap(),
+      home: GameMap(
+        attack: false,
+      ),
       debugShowCheckedModeBanner: false,
     );
   }

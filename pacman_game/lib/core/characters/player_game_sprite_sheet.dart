@@ -1,84 +1,85 @@
 import 'package:bonfire/bonfire.dart';
 
-class GameSpriteSheet {
-  static Future<SpriteAnimation> get heroidLeft => SpriteAnimation.load(
+class PlayerSpriteSheet {
+  double pixelSize = 20;
+  Future<SpriteAnimation> get heroidLeft => SpriteAnimation.load(
         'game_sheet.png',
         SpriteAnimationData.sequenced(
           amount: 3,
-          textureSize: Vector2.all(20),
+          textureSize: Vector2.all(pixelSize),
           stepTime: 0.15,
           loop: true,
           texturePosition: Vector2(0, 20),
         ),
       );
-  static Future<SpriteAnimation> get heroidRight => SpriteAnimation.load(
+  Future<SpriteAnimation> get heroidRight => SpriteAnimation.load(
         'game_sheet.png',
         SpriteAnimationData.sequenced(
           amount: 3,
-          textureSize: Vector2.all(20),
+          textureSize: Vector2.all(pixelSize),
           stepTime: 0.15,
           loop: true,
           texturePosition: Vector2(0, 0),
         ),
       );
-  static Future<SpriteAnimation> get heroidDown => SpriteAnimation.load(
+  Future<SpriteAnimation> get heroidDown => SpriteAnimation.load(
         'game_sheet.png',
         SpriteAnimationData.sequenced(
           amount: 3,
-          textureSize: Vector2.all(20),
+          textureSize: Vector2.all(pixelSize),
           stepTime: 0.15,
           loop: true,
-          texturePosition: Vector2(0, 3 * 20),
+          texturePosition: Vector2(0, 3 * pixelSize),
         ),
       );
-  static Future<SpriteAnimation> get heroidUp => SpriteAnimation.load(
+  Future<SpriteAnimation> get heroidUp => SpriteAnimation.load(
         'game_sheet.png',
         SpriteAnimationData.sequenced(
           amount: 3,
-          textureSize: Vector2.all(20),
+          textureSize: Vector2.all(pixelSize),
           stepTime: 0.15,
           loop: true,
-          texturePosition: Vector2(0, 2 * 20),
+          texturePosition: Vector2(0, 2 * pixelSize),
         ),
       );
-  static Future<SpriteAnimation> get heroRunLeft => SpriteAnimation.load(
+  Future<SpriteAnimation> get heroRunLeft => SpriteAnimation.load(
         'game_sheet.png',
         SpriteAnimationData.sequenced(
           amount: 3,
-          textureSize: Vector2.all(20),
+          textureSize: Vector2.all(pixelSize),
           stepTime: 0.2,
           loop: true,
-          texturePosition: Vector2(0, 20),
+          texturePosition: Vector2(0, pixelSize),
         ),
       );
-  static Future<SpriteAnimation> get heroRunRight => SpriteAnimation.load(
+  Future<SpriteAnimation> get heroRunRight => SpriteAnimation.load(
         'game_sheet.png',
         SpriteAnimationData.sequenced(
           amount: 3,
-          textureSize: Vector2.all(20),
+          textureSize: Vector2.all(pixelSize),
           stepTime: 0.2,
           loop: true,
           texturePosition: Vector2(0, 0),
         ),
       );
-  static Future<SpriteAnimation> get heroRunDown => SpriteAnimation.load(
+  Future<SpriteAnimation> get heroRunDown => SpriteAnimation.load(
         'game_sheet.png',
         SpriteAnimationData.sequenced(
           amount: 3,
-          textureSize: Vector2.all(20),
+          textureSize: Vector2.all(pixelSize),
           stepTime: 0.2,
           loop: true,
-          texturePosition: Vector2(0, 3 * 20),
+          texturePosition: Vector2(0, 3 * pixelSize),
         ),
       );
-  static Future<SpriteAnimation> get heroRunUp => SpriteAnimation.load(
+  Future<SpriteAnimation> get heroRunUp => SpriteAnimation.load(
         'game_sheet.png',
         SpriteAnimationData.sequenced(
           amount: 3,
-          textureSize: Vector2.all(20),
+          textureSize: Vector2.all(pixelSize),
           stepTime: 0.2,
           loop: true,
-          texturePosition: Vector2(0, 2 * 20),
+          texturePosition: Vector2(0, 2 * pixelSize),
         ),
       );
 }
