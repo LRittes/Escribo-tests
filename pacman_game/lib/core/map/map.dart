@@ -3,11 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:pacman_game/core/characters/ghost.dart';
 import 'package:pacman_game/core/characters/pacman.dart';
 
-class GameMap extends StatelessWidget {
+class GameMap extends StatefulWidget {
   bool attack;
-  GameMap({Key? key, required this.attack}) : super(key: key);
+  Pacman player;
+  GameMap({Key? key, required this.attack, required this.player})
+      : super(key: key);
 
-  final double pixel = 20;
+  @override
+  State<GameMap> createState() => _GameMapState();
+}
+
+class _GameMapState extends State<GameMap> {
+  final double tiledSize = 20;
 
   @override
   Widget build(BuildContext context) {
@@ -15,43 +22,44 @@ class GameMap extends StatelessWidget {
       map: TiledWorldMap(
         'bmap.tmj',
       ),
+      gameController: GameController(),
       components: [
         Ghost(
-          ghostPosition: Vector2(4.8 * pixel, 5 * pixel),
-          ghostSize: Vector2.all(pixel),
-          attackEnemy: attack,
+          ghostPosition: Vector2(4.8 * tiledSize, 5 * tiledSize),
+          ghostSize: Vector2.all(tiledSize),
+          attackEnemy: widget.attack,
         ),
         Ghost(
-          ghostPosition: Vector2(15 * pixel, 5 * pixel),
-          ghostSize: Vector2.all(pixel),
-          attackEnemy: attack,
+          ghostPosition: Vector2(15 * tiledSize, 5 * tiledSize),
+          ghostSize: Vector2.all(tiledSize),
+          attackEnemy: widget.attack,
         ),
         Ghost(
-          ghostPosition: Vector2(4.8 * pixel, 19.7 * pixel),
-          ghostSize: Vector2.all(pixel),
-          attackEnemy: attack,
+          ghostPosition: Vector2(4.8 * tiledSize, 19.7 * tiledSize),
+          ghostSize: Vector2.all(tiledSize),
+          attackEnemy: widget.attack,
         ),
         Ghost(
-          ghostPosition: Vector2(15 * pixel, 19.7 * pixel),
-          ghostSize: Vector2.all(pixel),
-          attackEnemy: attack,
+          ghostPosition: Vector2(15 * tiledSize, 19.7 * tiledSize),
+          ghostSize: Vector2.all(tiledSize),
+          attackEnemy: widget.attack,
         ),
       ],
-      joystick: Joystick(keyboardConfig: KeyboardConfig()
-          // directional:
-          //  JoystickDirectional(),
+      joystick: JoystickMoveToPosition(
+          // Joystick(
+          // keyboardConfig: KeyboardConfig(
+          //   keyboardDirectionalType: KeyboardDirectionalType.wasdAndArrows,
+          // ),
           ),
       cameraConfig: CameraConfig(
-        zoom: 0.8,
+        zoom: 1,
         moveOnlyMapArea: true,
         sizeMovementWindow: Vector2(
           MediaQuery.of(context).size.width,
           MediaQuery.of(context).size.height,
         ),
       ),
-      player: Pacman(
-          playerPosition: Vector2(10 * pixel, 15.7 * pixel),
-          playerSize: Vector2(pixel, pixel)),
+      player: widget.player,
       showCollisionArea: false,
     );
   }

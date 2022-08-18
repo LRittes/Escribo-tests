@@ -18,7 +18,7 @@ class Ghost extends SimpleEnemy with ObjectCollision {
             idleRight: playerSpriteSheet.ghostidRight,
             runRight: playerSpriteSheet.ghostRunRight,
           ),
-          speed: 50,
+          speed: 40,
           life: 1,
         ) {
     setupCollision(CollisionConfig(

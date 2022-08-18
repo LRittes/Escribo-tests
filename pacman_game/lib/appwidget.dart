@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:pacman_game/core/map/map.dart';
+import 'package:pacman_game/GamePage/views/splash_page.dart';
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -11,9 +11,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: GameMap(
-        attack: false,
-      ),
+      home: const SplashPage(),
       debugShowCheckedModeBanner: false,
     );
   }
