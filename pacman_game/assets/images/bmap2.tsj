@@ -1,0 +1,14 @@
+{ "columns":18,
+ "image":"bmap2.png",
+ "imageheight":400,
+ "imagewidth":360,
+ "margin":0,
+ "name":"bmap2",
+ "spacing":0,
+ "tilecount":360,
+ "tiledversion":"1.9.1",
+ "tileheight":20,
+ "tilewidth":20,
+ "type":"tileset",
+ "version":"1.8"
+}

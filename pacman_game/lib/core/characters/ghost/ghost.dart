@@ -1,5 +1,5 @@
 import 'package:bonfire/bonfire.dart';
-import 'package:pacman_game/core/characters/ghost_game_sprite_sheet.dart';
+import 'package:pacman_game/core/characters/ghost/ghost_game_sprite_sheet.dart';
 
 class Ghost extends SimpleEnemy with ObjectCollision {
   final Vector2 ghostPosition;

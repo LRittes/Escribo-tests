@@ -1,5 +1,5 @@
 import 'package:bonfire/bonfire.dart';
-import 'package:pacman_game/core/characters/pacman_game_sprite_sheet.dart';
+import 'package:pacman_game/core/characters/pacman/pacman_game_sprite_sheet.dart';
 
 enum Directions { right, left, up, down }
 

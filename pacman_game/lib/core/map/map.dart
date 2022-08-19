@@ -1,7 +1,8 @@
 import 'package:bonfire/bonfire.dart';
 import 'package:flutter/material.dart';
-import 'package:pacman_game/core/characters/ghost.dart';
-import 'package:pacman_game/core/characters/pacman.dart';
+import 'package:pacman_game/core/characters/ghost/ghost.dart';
+import 'package:pacman_game/core/characters/pacman/pacman.dart';
+import 'package:pacman_game/core/decorations/fruits/fruit_list.dart';
 
 class GameMap extends StatefulWidget {
   bool attack;
@@ -44,6 +45,7 @@ class _GameMapState extends State<GameMap> {
           ghostSize: Vector2.all(tiledSize),
           attackEnemy: widget.attack,
         ),
+        ...listSimpleFruit
       ],
       joystick: JoystickMoveToPosition(
           // Joystick(

@@ -1,6 +1,6 @@
 import 'package:bonfire/bonfire.dart';
 import 'package:flutter/widgets.dart';
-import 'package:pacman_game/core/characters/pacman.dart';
+import 'package:pacman_game/core/characters/pacman/pacman.dart';
 import 'package:pacman_game/core/map/map.dart';
 
 class SplashPage extends StatefulWidget {
