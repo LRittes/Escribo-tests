@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pacman_game/GamePage/views/splash_page.dart';
+import 'package:pacman_game/GamePage/views/game_page.dart';
+import 'package:pacman_game/GamePage/views/home_page.dart';
 
 class MyApp extends StatelessWidget {
   MyApp({Key? key}) : super(key: key);
@@ -8,10 +9,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Pacman',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const SplashPage(),
+      theme: ThemeData.dark(),
+      home: const HomePage(),
+      initialRoute: '/',
+      routes: {
+        '/gamepage': (_) => const GamePage(),
+      },
       debugShowCheckedModeBanner: false,
     );
   }

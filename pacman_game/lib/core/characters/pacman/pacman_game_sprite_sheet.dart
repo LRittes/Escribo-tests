@@ -82,4 +82,14 @@ class PlayerSpriteSheet {
           texturePosition: Vector2(0, 2 * pixelSize),
         ),
       );
+  Future<SpriteAnimation> get dieHero => SpriteAnimation.load(
+        'game_sheet.png',
+        SpriteAnimationData.sequenced(
+          amount: 12,
+          textureSize: Vector2.all(pixelSize),
+          stepTime: 0.06,
+          loop: true,
+          texturePosition: Vector2(3 * pixelSize, 0),
+        ),
+      );
 }

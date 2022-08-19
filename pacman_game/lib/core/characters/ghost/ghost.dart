@@ -1,16 +1,18 @@
 import 'package:bonfire/bonfire.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:pacman_game/core/characters/ghost/ghost_game_sprite_sheet.dart';
 
-class Ghost extends SimpleEnemy with ObjectCollision {
+class Ghost extends SimpleEnemy with ObjectCollision, AutomaticRandomMovement {
   final Vector2 ghostPosition;
   final Vector2 ghostSize;
-  bool _attackEnemy = true;
+  ValueNotifier<bool> attackEnemy;
   static final GhostSpriteSheet playerSpriteSheet = GhostSpriteSheet();
 
   Ghost({
     required this.ghostPosition,
     required this.ghostSize,
-    required bool attackEnemy,
+    required this.attackEnemy,
   }) : super(
           position: ghostPosition,
           size: ghostSize,
@@ -18,30 +20,56 @@ class Ghost extends SimpleEnemy with ObjectCollision {
             idleRight: playerSpriteSheet.ghostidRight,
             runRight: playerSpriteSheet.ghostRunRight,
           ),
-          speed: 40,
+          speed: 20,
           life: 1,
         ) {
     setupCollision(CollisionConfig(
         collisions: [CollisionArea.rectangle(size: Vector2(18, 18))]));
-    _attackEnemy = attackEnemy;
   }
 
   @override
   void update(double dt) {
-    seeAndMoveToPlayer(
-      closePlayer: (player) {
-        if (_attackEnemy) {
-          simpleAttackMelee(
-            damage: 1,
-            size: Vector2.all(20),
-            sizePush: playerSpriteSheet.pixelSize,
-            withPush: true,
+    seePlayer(
+        observed: (player) {
+          seeAndMoveToPlayer(
+            closePlayer: (player) {
+              if (!attackEnemy.value) {
+                simpleAttackMelee(
+                  damage: 1,
+                  size: Vector2.all(20),
+                  sizePush: 10,
+                  withPush: true,
+                );
+              }
+            },
+            runOnlyVisibleInScreen: true,
+            radiusVision: playerSpriteSheet.pixelSize * 2,
           );
-        }
-      },
-      runOnlyVisibleInScreen: true,
-      radiusVision: playerSpriteSheet.pixelSize * 2,
-    );
+        },
+        notObserved: () => runRandomMovement(
+              dt,
+              speed: 40,
+              timeKeepStopped: 00,
+              maxDistance: 70,
+              minDistance: 20,
+            ));
+
     super.update(dt);
+  }
+
+  @override
+  void die() {
+    if (lastDirectionHorizontal == Direction.left) {
+      animation?.playOnce(playerSpriteSheet.dieLeft, runToTheEnd: true,
+          onFinish: () {
+        removeFromParent();
+      });
+    } else {
+      animation?.playOnce(playerSpriteSheet.dieRight, runToTheEnd: true,
+          onFinish: () {
+        removeFromParent();
+      });
+    }
+    super.die();
   }
 }

@@ -82,4 +82,25 @@ class GhostSpriteSheet {
           texturePosition: Vector2(0, 11 * pixelSize),
         ),
       );
+
+  Future<SpriteAnimation> get dieLeft => SpriteAnimation.load(
+        'game_sheet.png',
+        SpriteAnimationData.sequenced(
+          amount: 4,
+          textureSize: Vector2.all(pixelSize),
+          stepTime: 0.15,
+          loop: true,
+          texturePosition: Vector2(2 * pixelSize, 8 * pixelSize),
+        ),
+      );
+  Future<SpriteAnimation> get dieRight => SpriteAnimation.load(
+        'game_sheet.png',
+        SpriteAnimationData.sequenced(
+          amount: 4,
+          textureSize: Vector2.all(pixelSize),
+          stepTime: 0.15,
+          loop: true,
+          texturePosition: Vector2(2 * pixelSize, 8 * pixelSize),
+        ),
+      );
 }

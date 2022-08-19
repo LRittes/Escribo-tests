@@ -3,18 +3,23 @@ import 'package:flutter/widgets.dart';
 import 'package:pacman_game/core/characters/pacman/pacman.dart';
 import 'package:pacman_game/core/map/map.dart';
 
-class SplashPage extends StatefulWidget {
-  const SplashPage({Key? key}) : super(key: key);
+class GamePage extends StatefulWidget {
+  const GamePage({Key? key}) : super(key: key);
 
   @override
-  State<SplashPage> createState() => _SplashPageState();
+  State<GamePage> createState() => _GamePageState();
 }
 
-class _SplashPageState extends State<SplashPage> {
-  var player = Pacman(
-      playerPosition: Vector2(10 * 20, 15.7 * 20), playerSize: Vector2(20, 20));
+class _GamePageState extends State<GamePage> {
+  ValueNotifier<bool> attack = ValueNotifier<bool>(false);
+
   @override
   Widget build(BuildContext context) {
+    var player = Pacman(
+      playerPosition: Vector2(10 * 20, 15 * 20),
+      playerSize: Vector2(20, 20),
+      attack: attack,
+    );
     return GestureDetector(
       onHorizontalDragUpdate: (DragUpdateDetails di) {
         var sen = 10;
@@ -26,14 +31,13 @@ class _SplashPageState extends State<SplashPage> {
       },
       onVerticalDragUpdate: (DragUpdateDetails di) {
         var sens = 10;
-        // print(di);
         if (di.delta.dy > sens) {
           player.diretion = Directions.down;
         } else if (di.delta.dy < -sens) {
           player.diretion = Directions.up;
         }
       },
-      child: GameMap(attack: false, player: player),
+      child: GameMap(attack: attack, player: player),
     );
   }
 }
