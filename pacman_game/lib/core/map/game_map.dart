@@ -42,7 +42,7 @@ class _GameMapState extends State<GameMap> {
                 keyboardDirectionalType:
                     KeyboardDirectionalType.wasdAndArrows)),
         cameraConfig: CameraConfig(
-          zoom: 0.8,
+          zoom: 1,
         ),
         player: widget.player,
         showCollisionArea: false,
