@@ -4,5 +4,5 @@ import 'package:pacman_game/appwidget.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(MyApp());
+  runApp(const MyApp());
 }

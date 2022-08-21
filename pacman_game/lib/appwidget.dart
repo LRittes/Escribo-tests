@@ -3,7 +3,7 @@ import 'package:pacman_game/GamePage/views/game_page.dart';
 import 'package:pacman_game/GamePage/views/home_page.dart';
 
 class MyApp extends StatelessWidget {
-  MyApp({Key? key}) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

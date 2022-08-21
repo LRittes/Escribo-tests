@@ -1,7 +1,8 @@
-import 'package:bonfire/bonfire.dart';
-import 'package:flutter/widgets.dart';
-import 'package:pacman_game/core/characters/pacman/pacman.dart';
-import 'package:pacman_game/core/map/map.dart';
+import 'package:flutter/material.dart';
+import 'package:pacman_game/GamePage/controllers/game_controller.dart';
+import 'package:pacman_game/GamePage/controllers/user_controller.dart';
+import 'package:pacman_game/GamePage/views/text_score.dart';
+import 'package:pacman_game/core/map/game_map.dart';
 
 class GamePage extends StatefulWidget {
   const GamePage({Key? key}) : super(key: key);
@@ -11,33 +12,41 @@ class GamePage extends StatefulWidget {
 }
 
 class _GamePageState extends State<GamePage> {
-  ValueNotifier<bool> attack = ValueNotifier<bool>(false);
+  MyGameController gameController = MyGameController();
+  UserController userController = UserController();
 
   @override
   Widget build(BuildContext context) {
-    var player = Pacman(
-      playerPosition: Vector2(10 * 20, 15 * 20),
-      playerSize: Vector2(20, 20),
-      attack: attack,
-    );
-    return GestureDetector(
-      onHorizontalDragUpdate: (DragUpdateDetails di) {
-        var sen = 10;
-        if (di.delta.dx > sen) {
-          player.diretion = Directions.right;
-        } else if (di.delta.dx < -sen) {
-          player.diretion = Directions.left;
-        }
-      },
-      onVerticalDragUpdate: (DragUpdateDetails di) {
-        var sens = 10;
-        if (di.delta.dy > sens) {
-          player.diretion = Directions.down;
-        } else if (di.delta.dy < -sens) {
-          player.diretion = Directions.up;
-        }
-      },
-      child: GameMap(attack: attack, player: player),
+    return Column(
+      children: [
+        SizedBox(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height * 0.1,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Text(
+                userController.user.name,
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold,
+                    decoration: TextDecoration.none),
+              ),
+              const TextScore(),
+            ],
+          ),
+        ),
+        GestureDetector(
+          onHorizontalDragUpdate: (di) =>
+              gameController.gestureOnScreenHorizontal(di),
+          onVerticalDragUpdate: (di) =>
+              gameController.gestureOnScreenVertical(di),
+          child: GameMap(
+            player: gameController.playerType,
+          ),
+        ),
+      ],
     );
   }
 }

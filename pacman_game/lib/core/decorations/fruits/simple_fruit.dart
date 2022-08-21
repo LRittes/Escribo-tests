@@ -1,5 +1,4 @@
 import 'package:bonfire/bonfire.dart';
-import 'package:pacman_game/core/characters/pacman/pacman.dart';
 import 'package:pacman_game/core/decorations/fruits/simple_fruit_sprite_sheet.dart';
 
 class SimpleFruit extends GameDecoration {
