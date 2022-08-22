@@ -32,6 +32,7 @@ class MyGameController extends GameComponent with ChangeNotifier {
 
   void switchAtack() => attack = true;
   void countPoints() => userController.score += 10;
+
   int get score => userController.score;
 
   @override
@@ -39,12 +40,6 @@ class MyGameController extends GameComponent with ChangeNotifier {
     gameOver = false;
     player = gameRef.player;
     return super.onLoad();
-  }
-
-  @override
-  void onMount() {
-    enemies = [...gameRef.componentsByType<Ghost>()];
-    super.onMount();
   }
 
   @override
