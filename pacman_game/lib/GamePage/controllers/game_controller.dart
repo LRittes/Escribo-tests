@@ -20,9 +20,9 @@ class MyGameController extends GameComponent with ChangeNotifier {
   UserController userController = UserController();
 
   late var playerType = Pacman(
-      playerPosition: Vector2(10 * 20, 15 * 20),
-      playerSize: Vector2(20, 20),
-      attack: attack);
+    playerPosition: Vector2(10 * 20, 15 * 20),
+    playerSize: Vector2(20, 20),
+  );
   late Player? player;
   bool attack = false;
   List? fruits;

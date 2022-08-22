@@ -9,14 +9,12 @@ class Pacman extends SimplePlayer with ObjectCollision {
   final Vector2 playerSize;
   Directions diretion = Directions.right;
   bool canMove = true;
-  bool attack;
   static final PlayerSpriteSheet playerSpriteSheet = PlayerSpriteSheet();
 
-  Pacman(
-      {required this.playerPosition,
-      required this.playerSize,
-      required this.attack})
-      : super(
+  Pacman({
+    required this.playerPosition,
+    required this.playerSize,
+  }) : super(
           position: playerPosition,
           size: playerSize,
           animation: SimpleDirectionAnimation(
