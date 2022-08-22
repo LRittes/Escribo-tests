@@ -109,12 +109,15 @@ class MyGameController extends GameComponent with ChangeNotifier {
 
     if (enemies!.isEmpty && !gameOver) {
       gameOver = true;
+      playerType.canMove = false;
       message = 'You Win !!!';
       _popUp(message);
     }
 
     if (fruits!.isEmpty && !gameOver) {
       gameOver = true;
+      playerType.canMove = false;
+
       message = 'You Win !!!';
       _popUp(message);
     }
