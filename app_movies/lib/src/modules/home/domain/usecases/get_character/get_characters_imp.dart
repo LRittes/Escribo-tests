@@ -5,12 +5,12 @@ import 'package:app_movies/src/modules/home/domain/usecases/get_character/get_ch
 class GetCharactersImp implements GetCharacters {
   late final CharacterRepository _characterRepository;
 
-  GetCharactersImp({required CharacterRepository characterRepository}) {
+  GetCharactersImp(CharacterRepository characterRepository) {
     _characterRepository = characterRepository;
   }
 
   @override
-  Future<List<Character>> getCharacters() async {
+  Future<List<Character>> call() async {
     return await _characterRepository.getCharacters();
   }
 }
