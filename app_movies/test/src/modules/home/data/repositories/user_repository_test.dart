@@ -1,5 +1,5 @@
 import 'package:app_movies/src/modules/home/data/datasource/interface/user_datasource.dart';
-import 'package:app_movies/src/modules/home/data/repositories/user_repository.dart';
+import 'package:app_movies/src/modules/home/data/repositories/user_repository_imp.dart';
 import 'package:app_movies/src/modules/home/domain/entities/user.dart';
 import 'package:app_movies/src/modules/home/domain/errors/errors.dart';
 import 'package:flutter_test/flutter_test.dart';
