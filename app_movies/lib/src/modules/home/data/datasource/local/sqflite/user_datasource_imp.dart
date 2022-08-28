@@ -13,14 +13,21 @@ class UserDatasourceImp implements UserDatasource {
   @override
   Future<Map<String, dynamic>> getUser() async {
     final user = await DB().db!.rawQuery("$sqlSelectAll user");
-    final favMovies = await DB().db!.rawQuery("$sqlSelectAll favMovies");
-    final favCharacters =
-        await DB().db!.rawQuery("$sqlSelectAll favCharacters");
+    if (user.isNotEmpty) {
+      final favMovies = await DB().db!.rawQuery("$sqlSelectAll favMovies");
+      final favCharacters =
+          await DB().db!.rawQuery("$sqlSelectAll favCharacters");
 
+      return {
+        "avatar": "${user[0]['avatar']}",
+        "favMovies": favMovies,
+        "favCharacters": favCharacters,
+      };
+    }
     return {
-      "avatar": "${user[0]['avatar']}",
-      "favMovies": favMovies,
-      "favCharacters": favCharacters,
+      "avatar": null,
+      "favMovies": [],
+      "favCharacters": [],
     };
   }
 

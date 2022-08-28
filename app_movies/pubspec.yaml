@@ -14,6 +14,8 @@ dependencies:
   fpdart: ^0.2.0
   dio: ^4.0.6
   sqflite: ^2.0.3+1
+  flutter_modular: ^5.0.3
+  fluttermoji: ^1.0.0
 
   cupertino_icons: ^1.0.2
 
