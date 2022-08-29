@@ -9,6 +9,7 @@ class MoviesDatasourceImp implements MoviesDatasource {
   @override
   Future<List<Map<String, dynamic>>> getMovies() async {
     final response = await service.get("https://swapi.dev/api/films/");
-    return response["response"];
+    var list = response['results'].toList();
+    return [...list];
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Widget card(context, bool fav, bool pageFav, bool movie) {
+Widget card(context, String name, bool fav, bool pageFav, bool movie) {
   return Container(
     width: MediaQuery.of(context).size.width,
     height: MediaQuery.of(context).size.height * 0.1,
@@ -17,18 +17,19 @@ Widget card(context, bool fav, bool pageFav, bool movie) {
       ),
     ),
     child: pageFav
-        ? const Center(child: Text('movie 1'))
+        ? Center(child: Text(name))
         : Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Text('movie1'),
+              Text(name),
               IconButton(
                 onPressed: () {},
                 icon: fav
                     ? const Icon(Icons.favorite)
                     : const Icon(Icons.favorite_outline),
                 splashRadius: 1,
+                padding: const EdgeInsets.all(1.0),
               )
             ],
           ),

@@ -10,9 +10,13 @@ import 'package:app_movies/src/modules/home/data/repositories/user_repository_im
 import 'package:app_movies/src/modules/home/domain/repositories/character_repository.dart';
 import 'package:app_movies/src/modules/home/domain/repositories/movies_repository.dart';
 import 'package:app_movies/src/modules/home/domain/repositories/user_repository.dart';
+import 'package:app_movies/src/modules/home/domain/usecases/get_character/get_character.dart';
 import 'package:app_movies/src/modules/home/domain/usecases/get_character/get_characters_imp.dart';
+import 'package:app_movies/src/modules/home/domain/usecases/get_movies.dart/get_movies.dart';
 import 'package:app_movies/src/modules/home/domain/usecases/get_movies.dart/get_movies_imp.dart';
+import 'package:app_movies/src/modules/home/domain/usecases/get_user/get_user.dart';
 import 'package:app_movies/src/modules/home/domain/usecases/get_user/get_user_imp.dart';
+import 'package:app_movies/src/modules/home/domain/usecases/save_user/save_user.dart';
 import 'package:app_movies/src/modules/home/domain/usecases/save_user/save_user_imp.dart';
 import 'package:app_movies/src/modules/home/presenters/views/home_page.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -21,7 +25,7 @@ class HomeModule extends Module {
   @override
   List<Bind<Object>> get binds => [
         // services
-        Bind.singleton<Service>((i) => ServiceImp()),
+        Bind.singleton<Service>((i) => DioServiceImp()),
 
         // datasources
         Bind.factory<CharactersDatasource>((i) => CharactersDatasourceImp(i())),
@@ -33,10 +37,10 @@ class HomeModule extends Module {
         Bind.factory<CharactersRepository>((i) => CharactersRepositoryImp(i())),
 
         // usecases
-        Bind.factory((i) => GetUserImp(i())),
-        Bind.factory((i) => SaveUserImp(i())),
-        Bind.factory((i) => GetMoviesImp(i())),
-        Bind.factory((i) => GetCharactersImp(i())),
+        Bind.factory<GetUser>((i) => GetUserImp(i())),
+        Bind.factory<SaveUser>((i) => SaveUserImp(i())),
+        Bind.factory<GetMovies>((i) => GetMoviesImp(i())),
+        Bind.factory<GetCharacters>((i) => GetCharactersImp(i())),
       ];
 
   @override

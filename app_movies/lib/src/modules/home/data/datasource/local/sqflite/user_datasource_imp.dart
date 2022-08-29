@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:app_movies/src/modules/home/data/datasource/interface/user_datasource.dart';
 import 'package:app_movies/src/modules/home/data/datasource/local/sqflite/db.dart';
 
@@ -24,8 +25,10 @@ class UserDatasourceImp implements UserDatasource {
         "favCharacters": favCharacters,
       };
     }
+    File file = File('app_movies/assets/images/default.txt');
+    String avatar = await file.readAsString();
     return {
-      "avatar": null,
+      "avatar": avatar,
       "favMovies": [],
       "favCharacters": [],
     };
