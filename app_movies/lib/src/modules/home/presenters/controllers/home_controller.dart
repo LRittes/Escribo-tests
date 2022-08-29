@@ -15,7 +15,7 @@ class HomeController extends ChangeNotifier {
     favCharacters: [],
     favMovies: [],
   );
-  List get listFavs => [...user.favCharacters, ...user.favMovies];
+  late List listFavs = [...user.favCharacters, ...user.favMovies];
 
   init() async {
     listMovies = await getMovies();
@@ -23,7 +23,7 @@ class HomeController extends ChangeNotifier {
     listCharacters = await getCharacters();
 
     user = await getUser();
-    // listFavs = [...user.favCharacters, ...user.favMovies];
+    listFavs = [...user.favCharacters, ...user.favMovies];
   }
 
   Future<List<Movie>> getMovies() async {
@@ -47,10 +47,15 @@ class HomeController extends ChangeNotifier {
     var usecase = await Modular.get<GetUser>().call();
     notifyListeners();
 
-    return usecase.getOrElse((l) => User(
-          avatar: '',
-          favCharacters: [],
-          favMovies: [],
-        ));
+    return usecase.getOrElse((l) {
+      print(l.message);
+
+      print(l.stackTrace);
+      return User(
+        avatar: '',
+        favCharacters: [],
+        favMovies: [],
+      );
+    });
   }
 }

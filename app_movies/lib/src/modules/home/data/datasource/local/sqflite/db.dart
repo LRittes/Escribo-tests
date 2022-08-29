@@ -3,7 +3,7 @@ import 'package:path/path.dart' as p;
 
 class DB {
   static final DB _instance = DB._privateConstructor();
-  Database? db;
+  static Database? db;
 
   DB._privateConstructor();
 
@@ -11,9 +11,15 @@ class DB {
     return _instance;
   }
 
+  get database async {
+    if (db != null) return db;
+
+    return await openDB();
+  }
+
   Future<Database> openDB() async {
     return await openDatabase(
-      p.join(await getDatabasesPath(), "dbuser.sql"),
+      p.join(await getDatabasesPath(), "dbuser.db"),
       version: 1,
       onCreate: onCreate,
     );

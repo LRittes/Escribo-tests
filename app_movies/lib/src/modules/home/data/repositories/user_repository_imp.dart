@@ -18,8 +18,8 @@ class UserRepositoryImp extends UserRepository {
       var result = await _userDatasource.getUser();
       User user = DTOUser.fromJson(result);
       return right(user);
-    } catch (e) {
-      return left(UserException(e.toString()));
+    } catch (e, stk) {
+      return left(UserException(e.toString(), stk));
     }
   }
 
@@ -28,8 +28,8 @@ class UserRepositoryImp extends UserRepository {
     try {
       Map<String, dynamic> userToJson = DTOUser.toJson(user);
       return right(await _userDatasource.saveUser(userToJson));
-    } catch (e) {
-      return left(UserException(e.toString()));
+    } catch (e, stk) {
+      return left(UserException(e.toString(), stk));
     }
   }
 }

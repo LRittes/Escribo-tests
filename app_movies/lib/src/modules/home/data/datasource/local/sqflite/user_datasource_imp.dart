@@ -13,11 +13,11 @@ class UserDatasourceImp implements UserDatasource {
 
   @override
   Future<Map<String, dynamic>> getUser() async {
-    final user = await DB().db!.rawQuery("$sqlSelectAll user");
+    final user = await DB().database.rawQuery("$sqlSelectAll user");
     if (user.isNotEmpty) {
-      final favMovies = await DB().db!.rawQuery("$sqlSelectAll favMovies");
+      final favMovies = await DB().database.rawQuery("$sqlSelectAll favMovies");
       final favCharacters =
-          await DB().db!.rawQuery("$sqlSelectAll favCharacters");
+          await DB().database.rawQuery("$sqlSelectAll favCharacters");
 
       return {
         "avatar": "${user[0]['avatar']}",
@@ -36,16 +36,18 @@ class UserDatasourceImp implements UserDatasource {
 
   @override
   Future<void> saveUser(Map<String, dynamic> user) async {
-    await DB().db!.rawDelete(sqlDeleteUser, [1]);
-    await DB().db!.rawInsert(sqlInsertUser, [1, user['avatar']]);
+    await DB().database.rawDelete(sqlDeleteUser, [1]);
+    await DB().database.rawInsert(sqlInsertUser, [1, user['avatar']]);
     for (var movie in user['favMovies']) {
       await DB()
-          .db!
+          .database
           .rawInsert(sqlInsertMovie, [1, movie['name'], movie['fav']]);
     }
     for (var character in user['favCharacters']) {
-      await DB().db!.rawInsert(
-          sqlInsertCharacter, [1, character['name'], character['fav']]);
+      await DB().database.rawInsert(
+        sqlInsertCharacter,
+        [1, character['name'], character['fav']],
+      );
     }
   }
 }

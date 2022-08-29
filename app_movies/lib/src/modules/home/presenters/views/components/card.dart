@@ -24,7 +24,9 @@ Widget card(context, String name, bool fav, bool pageFav, bool movie) {
             children: [
               Text(name),
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  fav = !fav;
+                },
                 icon: fav
                     ? const Icon(Icons.favorite)
                     : const Icon(Icons.favorite_outline),
