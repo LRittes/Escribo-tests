@@ -9,7 +9,7 @@ void main() async {
   var result = await usecase.getMovies();
   test("Must return a list of movies in json", () async {
     expect(result, isA<List<Map<String, dynamic>>>());
-  }, timeout: const Timeout(Duration(minutes: 1)));
+  });
   test('Must return the name of the first movie', () {
     expect(result[0]["title"], equals("A New Hope"));
   });

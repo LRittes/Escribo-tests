@@ -4,7 +4,6 @@ class DTOCharacter {
   static Character fromJson(dynamic data) {
     return Character(
       name: data['name'],
-      fav: data['fav'],
     );
   }
 

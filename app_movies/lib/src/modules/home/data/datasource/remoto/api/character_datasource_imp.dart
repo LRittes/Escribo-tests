@@ -8,7 +8,19 @@ class CharactersDatasourceImp implements CharactersDatasource {
 
   @override
   Future<List<Map<String, dynamic>>> getCharacters() async {
-    final response = await service.get("https://swapi.dev/api/people/");
-    return response["response"];
+    int page = 1;
+    List<Map<String, dynamic>> list = [];
+    var response =
+        await service.get("https://swapi.dev/api/people/?page=$page");
+    int totPage =
+        (response["count"] / response['results'].toList().length).ceil();
+    list = [...list, ...response['results'].toList()];
+    do {
+      page += 1;
+      response = await service.get("https://swapi.dev/api/people/?page=$page");
+      list = [...list, ...response['results'].toList()];
+    } while (page < totPage);
+
+    return list;
   }
 }

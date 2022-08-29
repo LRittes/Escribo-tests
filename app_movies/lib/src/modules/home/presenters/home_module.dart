@@ -1,5 +1,7 @@
 import 'package:app_movies/src/modules/home/data/datasource/interface/character_datasource.dart';
 import 'package:app_movies/src/modules/home/data/datasource/interface/movie_datasource.dart';
+import 'package:app_movies/src/modules/home/data/datasource/interface/user_datasource.dart';
+import 'package:app_movies/src/modules/home/data/datasource/local/sqflite/user_datasource_imp.dart';
 import 'package:app_movies/src/modules/home/data/datasource/remoto/api/character_datasource_imp.dart';
 import 'package:app_movies/src/modules/home/data/datasource/remoto/api/movie_datasource_imp.dart';
 import 'package:app_movies/src/modules/home/data/datasource/services/implementations/dio.dart';
@@ -28,6 +30,7 @@ class HomeModule extends Module {
         Bind.singleton<Service>((i) => DioServiceImp()),
 
         // datasources
+        Bind.factory<UserDatasource>((i) => UserDatasourceImp()),
         Bind.factory<CharactersDatasource>((i) => CharactersDatasourceImp(i())),
         Bind.factory<MoviesDatasource>((i) => MoviesDatasourceImp(i())),
 

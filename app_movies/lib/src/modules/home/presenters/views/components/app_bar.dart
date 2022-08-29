@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttermoji/fluttermoji.dart';
 
-PreferredSize appBar(context) {
+PreferredSize appBar(context, TabController tabController) {
   return PreferredSize(
     preferredSize: Size.fromHeight(MediaQuery.of(context).size.height * 0.25),
     child: AppBar(
@@ -45,6 +45,7 @@ PreferredSize appBar(context) {
         ),
       ],
       bottom: TabBar(
+        controller: tabController,
         indicator: BoxDecoration(
           color: Colors.green[200],
         ),
