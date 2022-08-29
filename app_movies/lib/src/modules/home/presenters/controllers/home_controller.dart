@@ -34,9 +34,9 @@ class HomeController extends ChangeNotifier {
   }
 
   Future<List<Movie>> getMovies() async {
-    var usecase = await Modular.get<GetMovies>().call();
+    var listMovies = await Modular.get<GetMovies>().call();
     notifyListeners();
-    return usecase.getOrElse((l) {
+    return listMovies.getOrElse((l) {
       return <Movie>[];
     });
   }

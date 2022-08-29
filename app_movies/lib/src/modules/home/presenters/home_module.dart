@@ -20,7 +20,6 @@ import 'package:app_movies/src/modules/home/domain/usecases/get_user/get_user.da
 import 'package:app_movies/src/modules/home/domain/usecases/get_user/get_user_imp.dart';
 import 'package:app_movies/src/modules/home/domain/usecases/save_user/save_user.dart';
 import 'package:app_movies/src/modules/home/domain/usecases/save_user/save_user_imp.dart';
-import 'package:app_movies/src/modules/home/presenters/views/components/browser_in_app.dart';
 import 'package:app_movies/src/modules/home/presenters/views/home_page.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 

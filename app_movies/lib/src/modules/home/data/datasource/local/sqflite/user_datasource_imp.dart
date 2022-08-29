@@ -1,18 +1,6 @@
 import 'package:app_movies/src/modules/home/data/datasource/interface/user_datasource.dart';
 import 'package:app_movies/src/modules/home/data/datasource/local/sqflite/db.dart';
-
-const String SQLSELECTALL = 'SELECT * FROM ';
-const String SQLDELETEUSER = 'DELETE FROM user WHERE id = 1';
-const String SQLINSERTUSER = 'INSERT INTO user (id, avatar) VALUES (1,?)';
-
-const String SQLINSERTMOVIE =
-    'INSERT INTO favMovies (idMovie, name, fav) VALUES (1,?,?)';
-const String SQLDELETEMOVIE = 'DELETE FROM favMovies WHERE idMovie = 1';
-
-const String SQLINSERTCHARACTER =
-    'INSERT INTO favCharacters (idCharacter, name, fav) VALUES (1,?,?)';
-const String SQLDELETECHARACTER =
-    'DELETE FROM favCharacters WHERE idCharacter = 1';
+import 'package:app_movies/src/modules/home/data/datasource/local/sqflite/sql_commands.dart';
 
 class UserDatasourceImp implements UserDatasource {
   @override
@@ -22,7 +10,6 @@ class UserDatasourceImp implements UserDatasource {
     // await db.rawDelete(SQLDELETEMOVIE);
     // await db.rawDelete(SQLDELETECHARACTER);
 
-    print('DB GET USER: ${await db.rawQuery("$SQLSELECTALL favMovies")}');
     final user = await db.rawQuery("$SQLSELECTALL user");
     if (user.isNotEmpty) {
       final favMovies = await db.rawQuery("$SQLSELECTALL favMovies");
@@ -54,7 +41,6 @@ class UserDatasourceImp implements UserDatasource {
 
     await db.rawInsert(SQLINSERTUSER, [user['avatar']]);
 
-    print('DB SAVE USER : ${user['favMovies'][0]}');
     for (var movie in user['favMovies']) {
       await db.rawInsert(SQLINSERTMOVIE, [movie['name'], movie['fav']]);
     }
