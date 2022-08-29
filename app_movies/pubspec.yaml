@@ -16,8 +16,7 @@ dependencies:
   sqflite: ^2.0.3+1
   flutter_modular: ^5.0.3
   fluttermoji: ^1.0.0
-
-  cupertino_icons: ^1.0.2
+  flutter_inappwebview: ^5.4.3+7
 
 dev_dependencies:
   flutter_test:

@@ -1,6 +1,14 @@
+import 'package:app_movies/src/modules/home/presenters/controllers/home_controller.dart';
 import 'package:flutter/material.dart';
 
-Widget card(context, String name, bool fav, bool pageFav, bool movie) {
+Widget card(
+  context,
+  List list,
+  int idx,
+  bool pageFav,
+  bool movie,
+  HomeController controler,
+) {
   return Container(
     width: MediaQuery.of(context).size.width,
     height: MediaQuery.of(context).size.height * 0.1,
@@ -17,17 +25,17 @@ Widget card(context, String name, bool fav, bool pageFav, bool movie) {
       ),
     ),
     child: pageFav
-        ? Center(child: Text(name))
+        ? Center(child: Text(list[idx].name))
         : Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(name),
+              Text(list[idx].name),
               IconButton(
                 onPressed: () {
-                  fav = !fav;
+                  controler.exchange(list, idx);
                 },
-                icon: fav
+                icon: list[idx].fav
                     ? const Icon(Icons.favorite)
                     : const Icon(Icons.favorite_outline),
                 splashRadius: 1,

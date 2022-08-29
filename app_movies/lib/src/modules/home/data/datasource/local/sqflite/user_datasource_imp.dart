@@ -1,23 +1,33 @@
-import 'dart:io';
 import 'package:app_movies/src/modules/home/data/datasource/interface/user_datasource.dart';
 import 'package:app_movies/src/modules/home/data/datasource/local/sqflite/db.dart';
 
-class UserDatasourceImp implements UserDatasource {
-  final String sqlSelectAll = 'SELECT * FROM ';
-  final String sqlInsertUser = 'INSERT INTO user (id, avatar) VALUES (?,?)';
-  final String sqlDeleteUser = 'DELETE FROM user WHERE id = ?';
-  final String sqlInsertMovie =
-      'INSERT INTO favMovies (idMovie, name, fav) VALUES (?,?,?)';
-  final String sqlInsertCharacter =
-      'INSERT INTO favCharacters (id, name, fav) VALUES (?,?,?)';
+const String SQLSELECTALL = 'SELECT * FROM ';
+const String SQLDELETEUSER = 'DELETE FROM user WHERE id = 1';
+const String SQLINSERTUSER = 'INSERT INTO user (id, avatar) VALUES (1,?)';
 
+const String SQLINSERTMOVIE =
+    'INSERT INTO favMovies (idMovie, name, fav) VALUES (1,?,?)';
+const String SQLDELETEMOVIE = 'DELETE FROM favMovies WHERE idMovie = 1';
+
+const String SQLINSERTCHARACTER =
+    'INSERT INTO favCharacters (idCharacter, name, fav) VALUES (1,?,?)';
+const String SQLDELETECHARACTER =
+    'DELETE FROM favCharacters WHERE idCharacter = 1';
+
+class UserDatasourceImp implements UserDatasource {
   @override
   Future<Map<String, dynamic>> getUser() async {
-    final user = await DB().database.rawQuery("$sqlSelectAll user");
+    final db = await DB().database;
+    // await db.rawDelete(SQLDELETEUSER);
+    // await db.rawDelete(SQLDELETEMOVIE);
+    // await db.rawDelete(SQLDELETECHARACTER);
+
+    print('DB GET USER: ${await db.rawQuery("$SQLSELECTALL favMovies")}');
+    final user = await db.rawQuery("$SQLSELECTALL user");
     if (user.isNotEmpty) {
-      final favMovies = await DB().database.rawQuery("$sqlSelectAll favMovies");
-      final favCharacters =
-          await DB().database.rawQuery("$sqlSelectAll favCharacters");
+      final favMovies = await db.rawQuery("$SQLSELECTALL favMovies");
+      final favCharacters = await db.rawQuery("$SQLSELECTALL favCharacters");
+      db.close();
 
       return {
         "avatar": "${user[0]['avatar']}",
@@ -25,10 +35,10 @@ class UserDatasourceImp implements UserDatasource {
         "favCharacters": favCharacters,
       };
     }
-    File file = File('app_movies/assets/images/default.txt');
-    String avatar = await file.readAsString();
+    db.close();
+
     return {
-      "avatar": avatar,
+      "avatar": "avatar",
       "favMovies": [],
       "favCharacters": [],
     };
@@ -36,18 +46,24 @@ class UserDatasourceImp implements UserDatasource {
 
   @override
   Future<void> saveUser(Map<String, dynamic> user) async {
-    await DB().database.rawDelete(sqlDeleteUser, [1]);
-    await DB().database.rawInsert(sqlInsertUser, [1, user['avatar']]);
+    final db = await DB().database;
+
+    await db.rawDelete(SQLDELETEUSER);
+    await db.rawDelete(SQLDELETEMOVIE);
+    await db.rawDelete(SQLDELETECHARACTER);
+
+    await db.rawInsert(SQLINSERTUSER, [user['avatar']]);
+
+    print('DB SAVE USER : ${user['favMovies'][0]}');
     for (var movie in user['favMovies']) {
-      await DB()
-          .database
-          .rawInsert(sqlInsertMovie, [1, movie['name'], movie['fav']]);
+      await db.rawInsert(SQLINSERTMOVIE, [movie['name'], movie['fav']]);
     }
     for (var character in user['favCharacters']) {
-      await DB().database.rawInsert(
-        sqlInsertCharacter,
-        [1, character['name'], character['fav']],
+      await db.rawInsert(
+        SQLINSERTCHARACTER,
+        [character['name'], character['fav']],
       );
     }
+    db.close();
   }
 }

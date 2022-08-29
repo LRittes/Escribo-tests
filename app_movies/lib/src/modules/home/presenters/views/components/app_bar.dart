@@ -1,3 +1,5 @@
+import 'package:app_movies/src/modules/home/presenters/views/components/browser_in_app.dart';
+import 'package:app_movies/src/modules/home/presenters/views/components/customize_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttermoji/fluttermoji.dart';
 
@@ -8,7 +10,15 @@ PreferredSize appBar(context, TabController tabController) {
       title: SizedBox(
         width: MediaQuery.of(context).size.width * 0.4,
         child: ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (context) => const BrowserInApp(),
+              barrierColor: Colors.transparent,
+            );
+          },
+          style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(Colors.green[200])),
           child: const Text('Site Oficial', style: TextStyle(fontSize: 12)),
         ),
       ),
@@ -21,22 +31,7 @@ PreferredSize appBar(context, TabController tabController) {
                 barrierColor: Colors.transparent,
                 context: context,
                 barrierDismissible: true,
-                builder: (c) => Container(
-                  width: MediaQuery.of(context).size.width,
-                  margin: EdgeInsets.symmetric(
-                      vertical: MediaQuery.of(context).size.height * 0.14),
-                  color: const Color.fromARGB(255, 36, 40, 46),
-                  child: Column(
-                    children: [
-                      FluttermojiCircleAvatar(
-                          radius: 35, backgroundColor: Colors.white10),
-                      FluttermojiCustomizer(
-                        scaffoldHeight:
-                            MediaQuery.of(context).size.height * 0.5,
-                      ),
-                    ],
-                  ),
-                ),
+                builder: (context) => customizeAvatar(context),
               );
             },
             child: FluttermojiCircleAvatar(

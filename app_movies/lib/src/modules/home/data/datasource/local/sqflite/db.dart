@@ -1,4 +1,5 @@
 import 'package:sqflite/sqflite.dart';
+// ignore: depend_on_referenced_packages
 import 'package:path/path.dart' as p;
 
 class DB {
@@ -11,8 +12,8 @@ class DB {
     return _instance;
   }
 
-  get database async {
-    if (db != null) return db;
+  Future<Database> get database async {
+    if (db != null) return db!;
 
     return await openDB();
   }
@@ -34,7 +35,7 @@ class DB {
     db.execute('''create table favMovies (
   	                  name Text,
   	                  fav bool,
-	                    idMovie Integer,
+	                    idMovie INTEGER,
   	                  FOREIGN key (idMovie)
   		                  REFERENCES user (id)
   	                  ON UPDATE CASCADE
@@ -43,8 +44,8 @@ class DB {
     db.execute('''create table favCharacters (
   	                  name Text,
   	                  fav bool,
-	                    idCharacter Integer,
-  	                  FOREIGN key (idCharacter)
+	                    idCharacter INTEGER,
+  	                  FOREIGN KEY (idCharacter)
 		                    REFERENCES user (id)
 	                    ON UPDATE CASCADE
                       ON DELETE CASCADE
