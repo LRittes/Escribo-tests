@@ -1,0 +1,29 @@
+name: app_movies
+description: A new Flutter project.
+
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.17.3 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  fpdart: ^0.2.0
+  dio: ^4.0.6
+  sqflite: ^2.0.3+1
+  flutter_modular: ^5.0.3
+  fluttermoji: ^1.0.0
+  flutter_inappwebview: ^5.4.3+7
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  mocktail: ^0.3.0
+
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
