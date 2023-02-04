@@ -8,6 +8,7 @@ Widget tabBarMovies(
   List list,
   bool isLoading,
   HomeController controller,
+  Function onTap,
 ) {
   var scrollC1 = ScrollController();
 

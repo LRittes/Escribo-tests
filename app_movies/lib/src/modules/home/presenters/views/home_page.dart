@@ -1,4 +1,5 @@
 import 'package:app_movies/src/modules/home/presenters/controllers/home_controller.dart';
+import 'package:app_movies/src/modules/home/presenters/states/movie_state.dart';
 import 'package:app_movies/src/modules/home/presenters/views/components/app_bar.dart';
 import 'package:app_movies/src/modules/home/presenters/views/components/tab_bars.dart';
 import 'package:flutter/material.dart';
@@ -19,16 +20,22 @@ class _HomePageState extends State<HomePage>
 
   @override
   void initState() {
+    super.initState();
     _tabBarController = TabController(vsync: this, length: 3);
     controller.init();
-    super.initState();
+    controller.addListener(_listener);
   }
 
   @override
   void dispose() {
     _tabBarController.dispose();
+    controller.removeListener(_listener);
     controller.dispose();
     super.dispose();
+  }
+
+  _listener() {
+    setState(() {});
   }
 
   @override
@@ -40,24 +47,46 @@ class _HomePageState extends State<HomePage>
   }
 
   Widget body() {
+    MovieState state = controller.state;
+
+    Widget widgetMovies = tabBarMovies(
+      context,
+      [],
+      false,
+      controller,
+      _listener,
+    );
+
+    if (state is MovieLoadedState) {
+      if (state.movies.isNotEmpty) {
+        widgetMovies = tabBarMovies(
+          context,
+          state.movies,
+          false,
+          controller,
+          _listener,
+        );
+      }
+    }
+
+    if (state is MovieLoadingState) {
+      widgetMovies = Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(state.message),
+          const SizedBox(
+            height: 25,
+          ),
+          const CircularProgressIndicator(),
+        ],
+      );
+    }
+
     return TabBarView(
       controller: _tabBarController,
       children: [
-        AnimatedBuilder(
-          animation: controller,
-          builder: (context, _) {
-            if (controller.listMovies.isNotEmpty) {
-              isLoadingMovie = false;
-            }
-
-            return tabBarMovies(
-              context,
-              controller.listMovies,
-              isLoadingMovie,
-              controller,
-            );
-          },
-        ),
+        widgetMovies,
         AnimatedBuilder(
           animation: controller,
           builder: (context, _) {
@@ -75,7 +104,11 @@ class _HomePageState extends State<HomePage>
         AnimatedBuilder(
           animation: controller,
           builder: (context, _) {
-            return tabBarUser(context, controller.listFavs, controller);
+            return tabBarUser(
+              context,
+              controller.listFavs,
+              controller,
+            );
           },
         ),
       ],

@@ -5,25 +5,41 @@ import 'package:app_movies/src/modules/home/domain/usecases/get_character/get_ch
 import 'package:app_movies/src/modules/home/domain/usecases/get_movies.dart/get_movies.dart';
 import 'package:app_movies/src/modules/home/domain/usecases/get_user/get_user.dart';
 import 'package:app_movies/src/modules/home/domain/usecases/save_user/save_user.dart';
+import 'package:app_movies/src/modules/home/presenters/states/movie_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class HomeController extends ChangeNotifier {
-  List<Movie> listMovies = <Movie>[];
+  MovieState _state = MovieInitialState([]);
+  MovieState get state => _state;
+
+  List<Movie> _listMovies = <Movie>[];
   List<Character> listCharacters = <Character>[];
   late User user;
   late List listFavs;
+
+  _emitMovieState(MovieState newState) {
+    _state = newState;
+    notifyListeners();
+  }
 
   init() async {
     user = await getUser();
     listFavs = [...user.favCharacters, ...user.favMovies];
 
-    listMovies = (await getMovies()).map((e) {
-      listFavs.any((movie) => movie.name == e.name)
-          ? e.fav = true
-          : e.fav = false;
-      return e;
-    }).toList();
+    try {
+      _emitMovieState(MovieLoadingState());
+      _listMovies = (await getMovies()).map((e) {
+        listFavs.any((movie) => movie.name == e.name)
+            ? e.fav = true
+            : e.fav = false;
+        return e;
+      }).toList();
+
+      _emitMovieState(MovieLoadedState(_listMovies));
+    } catch (e) {
+      _emitMovieState(MovieFailureState(e.toString()));
+    }
 
     listCharacters = (await getCharacters()).map((e) {
       listFavs.any((movie) => movie.name == e.name)
@@ -39,6 +55,13 @@ class HomeController extends ChangeNotifier {
     return listMovies.getOrElse((l) {
       return <Movie>[];
     });
+  }
+
+  void exchange(List list, int idx) {
+    list[idx].fav = !list[idx].fav;
+    addFavs(list[idx], list[idx].fav);
+
+    notifyListeners();
   }
 
   Future<List<Character>> getCharacters() async {
@@ -75,13 +98,6 @@ class HomeController extends ChangeNotifier {
     });
     var usecase = await Modular.get<SaveUser>().call(user);
     usecase.getOrElse((l) {});
-  }
-
-  void exchange(List list, int idx) {
-    list[idx].fav = !list[idx].fav;
-    addFavs(list[idx], list[idx].fav);
-
-    notifyListeners();
   }
 
   void addFavs(item, bool fav) {
